@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
-    path('create_story/', views.CreateStory, name="create_story")
-]
+urlpatterns = {
+    path('show_all_stories/', views.ShowAllStories, name="show_all_stories"),
+    path('show_story/<str:pk>', views.ShowStory, name="show_story"),
+}

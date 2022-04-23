@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 
 
@@ -10,6 +12,9 @@ class Story(models.Model):
     story_created_date = models.DateField(auto_now_add=True)
     story_image = models.ImageField(upload_to="static/images", null=True, blank=True)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class StoryInformation(models.Model):
     LikeOrDislike = (
@@ -19,3 +24,8 @@ class StoryInformation(models.Model):
     story_id = models.ForeignKey(Story, on_delete=models.CASCADE)
     user_details = models.ForeignKey(User, on_delete=models.CASCADE)
     story_status = models.CharField(max_length=50, choices=LikeOrDislike)
+
+    def __str__(self):
+        return self.story_status
+
+
