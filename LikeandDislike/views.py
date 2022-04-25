@@ -6,7 +6,7 @@ from .serializers import StorySerializer, StoryInformationSerializer
 from rest_framework.views import APIView
 
 
-# show all stories added by admin
+# show all stories added by admin.
 class ShowAllStory(APIView):
     def get(self, request):
         stories = Story.objects.all()
@@ -14,7 +14,7 @@ class ShowAllStory(APIView):
         return Response(serializer.data)
 
 
-# show story added by admin
+# show story added by admin.
 class ShowStory(APIView):
     def get(self, request, pk):
         story = Story.objects.get(id=pk)
@@ -22,7 +22,7 @@ class ShowStory(APIView):
         return Response(serializer.data)
 
 
-# Check likes and dislikes of individual stories
+# Check likes and dislikes of individual stories.
 class CountLikeDislike(APIView):
     def get(self, request, pk):
         story = Story.objects.get(id=pk)
@@ -33,3 +33,17 @@ class CountLikeDislike(APIView):
         return Response(contexts)
 
 
+# check a story liked users.
+class UserLikedStory(APIView):
+    def get(self, request, pk):
+        filter_stories = StoryInformation.objects.filter(story_status='like', story_id=pk)
+        serialized_stories = StoryInformationSerializer(filter_stories, many=True)
+        return Response(serialized_stories.data)
+
+
+# check a story disliked users.
+class UserDislikedStory(APIView):
+    def get(self, request, pk):
+        filter_stories = StoryInformation.objects.filter(story_status='dislike', story_id=pk)
+        serialized_stories = StoryInformationSerializer(filter_stories, many=True)
+        return Response(serialized_stories.data)

@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class Story(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     story_name = models.CharField(max_length=100, null=False)
@@ -22,7 +21,7 @@ class StoryInformation(models.Model):
         ('dislike', 'Dislike'),
     )
     story_id = models.ForeignKey(Story, on_delete=models.CASCADE)
-    user_details = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     story_status = models.CharField(max_length=50, choices=LikeOrDislike)
 
     def __str__(self):
